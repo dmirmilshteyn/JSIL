@@ -15,26 +15,11 @@ JSIL.ImplementExternals("System.IO.Compression.ZipArchive", function ($) {
 		}
 	);
 
-    $.Method({ Static: false, Public: true }, ".ctor",
-		new JSIL.MethodSignature(null, [$systemio.TypeRef("System.IO.Stream"), $jsilcompression.TypeRef("System.IO.Compression.ZipArchiveMode")]),
-		function (stream, zipArchiveMode, leaveOpen) {
-		    this._stream = stream;
-		    this._zip = new JSZip(this._stream._buffer);
-		}
-	);
-
-    $.Method({ Static: false, Public: true }, ".ctor",
-		new JSIL.MethodSignature(null, [$systemio.TypeRef("System.IO.Stream"), $jsilcompression.TypeRef("System.IO.Compression.ZipArchiveMode"), $.Boolean]),
-		function (stream, zipArchiveMode, leaveOpen) {
-		    this._stream = stream;
-		    this._zip = new JSZip(this._stream._buffer);
-		}
-	);
-
     $.Method({ Static: false, Public: true }, "CreateEntry",
 		new JSIL.MethodSignature($jsilcompression.TypeRef("System.IO.Compression.ZipArchiveEntry"), [$.String], []),
 		function (entryName) {
 		    // FIXME: ZipArchive CreateEntry
+		    alert("ZipArchive CreateEntry");
 		}
 	);
 
@@ -69,24 +54,6 @@ JSIL.ImplementExternals("System.IO.Compression.ZipArchive", function ($) {
 		    }
 
 		    return this._entries;
-		}
-	);
-
-    $.Method({ Static: false, Public: true }, "GetEntry",
-		new JSIL.MethodSignature($jsilcompression.TypeRef("System.IO.Compression.ZipArchiveEntry"), [$.String], []),
-		function GetEntry(entryName) {
-		    var entry = this._zip.file(entryName);
-
-		    // Only return files
-		    if (entry !== null && entry.dir === false) {
-		        var tZipArchiveEntry = System.IO.Compression.ZipArchiveEntry.__Type__;
-		        var zipArchiveEntry = JSIL.CreateInstanceOfType(tZipArchiveEntry, "$internalCtor", [entry]);
-
-		        return zipArchiveEntry;
-		    } else {
-		        // FIXME: Check the exception that's returned if an entry is not found
-		        return null;
-		    }
 		}
 	);
 });
@@ -130,8 +97,7 @@ JSIL.ImplementExternals("System.IO.Compression.ZipArchiveEntry", function ($) {
     $.Method({ Static: false, Public: true }, "get_Name",
 		new JSIL.MethodSignature($.String, [], []),
 		function get_Name() {
-		    var entryName = System.IO.Path.GetFileName(this._entry.name);
-		    return entryName;
+		    return System.IO.Path.GetFileName(this._entry.name);
 		}
 	);
 
