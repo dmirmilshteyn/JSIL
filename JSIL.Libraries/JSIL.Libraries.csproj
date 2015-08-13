@@ -124,6 +124,8 @@
     <Content Include="Includes\Bootstrap\Core\Utils\%24jsilcore.%24ParseFloat.js" />
     <Content Include="Includes\Bootstrap\Core\Utils\%24jsilcore.%24ParseInt.js" />
     <Content Include="Sources\gamepad.js" />
+    <Content Include="Sources\JSIL.IO.Compression.js" />
+    <Content Include="Sources\jszip.min.js" />
     <Content Include="Sources\TranslatedBCL\JSIL.Bootstrap.js" />
     <Content Include="Sources\IgnoredBCL\JSIL.Bootstrap.js" />
     <Content Include="Sources\JSIL.Bootstrap.Async.js" />

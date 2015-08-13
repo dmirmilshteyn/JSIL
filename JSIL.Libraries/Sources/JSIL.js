@@ -268,6 +268,11 @@ var $jsilloaderstate = {
   environment.loadScript(libraryRoot + "JSIL.Bootstrap.Resources.js");
   environment.loadScript(libraryRoot + "JSIL.Bootstrap.Linq.js");
   environment.loadScript(libraryRoot + "JSIL.Bootstrap.Async.js");
+
+  if (config.zip || environment.getUserSetting("zip")) {
+    environment.loadScript(libraryRoot + "jszip.min.js");
+    environment.loadScript(libraryRoot + "JSIL.IO.Compression.js");
+  }
   
   if (config.interpreter || environment.getUserSetting("interpreter"))
     environment.loadScript(libraryRoot + "JSIL.ExpressionInterpreter.js");  
