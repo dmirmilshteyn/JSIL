@@ -15,11 +15,26 @@ JSIL.ImplementExternals("System.IO.Compression.ZipArchive", function ($) {
 		}
 	);
 
+    $.Method({ Static: false, Public: true }, ".ctor",
+		new JSIL.MethodSignature(null, [$systemio.TypeRef("System.IO.Stream"), $jsilcompression.TypeRef("System.IO.Compression.ZipArchiveMode")]),
+		function (stream, zipArchiveMode, leaveOpen) {
+		    this._stream = stream;
+		    this._zip = new JSZip(this._stream._buffer);
+		}
+	);
+
+    $.Method({ Static: false, Public: true }, ".ctor",
+		new JSIL.MethodSignature(null, [$systemio.TypeRef("System.IO.Stream"), $jsilcompression.TypeRef("System.IO.Compression.ZipArchiveMode"), $.Boolean]),
+		function (stream, zipArchiveMode, leaveOpen) {
+		    this._stream = stream;
+		    this._zip = new JSZip(this._stream._buffer);
+		}
+	);
+
     $.Method({ Static: false, Public: true }, "CreateEntry",
 		new JSIL.MethodSignature($jsilcompression.TypeRef("System.IO.Compression.ZipArchiveEntry"), [$.String], []),
 		function (entryName) {
 		    // FIXME: ZipArchive CreateEntry
-		    alert("ZipArchive CreateEntry");
 		}
 	);
 
@@ -115,7 +130,8 @@ JSIL.ImplementExternals("System.IO.Compression.ZipArchiveEntry", function ($) {
     $.Method({ Static: false, Public: true }, "get_Name",
 		new JSIL.MethodSignature($.String, [], []),
 		function get_Name() {
-		    return System.IO.Path.GetFileName(this._entry.name);
+		    var entryName = System.IO.Path.GetFileName(this._entry.name);
+		    return entryName;
 		}
 	);
 
