@@ -56,6 +56,24 @@ JSIL.ImplementExternals("System.IO.Compression.ZipArchive", function ($) {
 		    return this._entries;
 		}
 	);
+
+    $.Method({ Static: false, Public: true }, "GetEntry",
+		new JSIL.MethodSignature($jsilcompression.TypeRef("System.IO.Compression.ZipArchiveEntry"), [$.String], []),
+		function GetEntry(entryName) {
+		    var entry = this._zip.file(entryName);
+
+		    // Only return files
+		    if (entry !== null && entry.dir === false) {
+		        var tZipArchiveEntry = System.IO.Compression.ZipArchiveEntry.__Type__;
+		        var zipArchiveEntry = JSIL.CreateInstanceOfType(tZipArchiveEntry, "$internalCtor", [entry]);
+
+		        return zipArchiveEntry;
+		    } else {
+		        // FIXME: Check the exception that's returned if an entry is not found
+		        return null;
+		    }
+		}
+	);
 });
 
 JSIL.ImplementExternals("System.IO.Compression.ZipArchiveEntry", function ($) {
