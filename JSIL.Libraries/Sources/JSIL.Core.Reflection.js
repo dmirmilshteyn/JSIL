@@ -27,6 +27,48 @@ JSIL.ReflectionGetTypeInternal = function (thisAssembly, name, throwOnFail, igno
 };
 
 JSIL.ImplementExternals(
+  "System.Reflection.TypeInfo", function ($) {
+      $.RawMethod(false, "$internalCtor",
+        function (rawType) {
+            this._type = rawType;
+        }
+      );
+
+      $.Method({ Static: false, Public: true }, "AsType",
+        new JSIL.MethodSignature($jsilcore.TypeRef("System.Type"), [], []),
+        function AsType() {
+            return this._type;
+        }
+      );
+
+      $.Method({ Static: false, Public: true, Virtual: true }, "IsAssignableFrom",
+        new JSIL.MethodSignature($.Boolean, [$.Type]),
+        function IsAssignableFrom(result, testType) {
+            return this._type.IsAssignableFrom(testType);
+        }
+      )
+
+      $.Method({ Static: false, Public: true }, "get_Assembly",
+        new JSIL.MethodSignature($jsilcore.TypeRef("System.Reflection.Assembly"), [], []),
+        function get_Assembly() {
+            return this._type.get_Assembly();
+        }
+      );
+  }
+);
+
+JSIL.ImplementExternals(
+  "System.Reflection.IntrospectionExtensions", function ($) {
+      $.Method({ Static: true, Public: true }, "GetTypeInfo",
+        new JSIL.MethodSignature($jsilcore.TypeRef("System.Reflection.TypeInfo"), [$jsilcore.TypeRef("System.Type")], []),
+        function GetTypeInfo(targetType) {
+            return JSIL.CreateInstanceOfType(System.Reflection.TypeInfo.__Type__, "$internalCtor", [targetType]);
+        }
+      );
+  }
+);
+
+JSIL.ImplementExternals(
   "System.Type", function ($) {
     var typeReference = $jsilcore.TypeRef("System.Type");
     var memberArray = new JSIL.TypeRef($jsilcore, "System.Array", ["System.Reflection.MemberInfo"]);
