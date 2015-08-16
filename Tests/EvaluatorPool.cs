@@ -119,6 +119,7 @@ namespace JSIL.Tests {
         private volatile int IsDisposed = 0;
         private volatile int _ExitCode = 0;
         private volatile string _StdOut = null, _StdErr = null;
+        private ManualResetEventSlim _DisposedSignal = new ManualResetEventSlim(false);
         private Action _JoinImpl;
 
         public Evaluator (string jsShellPath, string options, Dictionary<string, string> environmentVariables = null) {
@@ -140,33 +141,27 @@ namespace JSIL.Tests {
                     psi.EnvironmentVariables[kvp.Key] = kvp.Value;
             }
 
-            ManualResetEventSlim stdoutSignal, stderrSignal;
-            stdoutSignal = new ManualResetEventSlim(false);
-            stderrSignal = new ManualResetEventSlim(false);
-
             Process = Process.Start(psi);
 
-            ThreadPool.QueueUserWorkItem((_) => {
-                try {
-                    _StdOut = Process.StandardOutput.ReadToEnd();
-                } catch {
-                }
-                stdoutSignal.Set();
-            });
-            ThreadPool.QueueUserWorkItem((_) => {
-                try {
-                    _StdErr = Process.StandardError.ReadToEnd();
-                } catch {
-                }
-                stderrSignal.Set();
-            });
+            var streamsSignal = new ManualResetEventSlim(false);
+            var task = ReadStreams(streamsSignal);
 
             _JoinImpl = () => {
-                stdoutSignal.Wait();
-                stderrSignal.Wait();
-                stderrSignal.Dispose();
-                stderrSignal.Dispose();
+                WaitHandle.WaitAny(
+                    new WaitHandle[] { streamsSignal.WaitHandle, _DisposedSignal.WaitHandle },
+                    60000
+                );
             };
+        }
+
+        private async System.Threading.Tasks.Task ReadStreams (ManualResetEventSlim signal) {
+            var stdout = Process.StandardOutput.ReadToEndAsync();
+            var stderr = Process.StandardError.ReadToEndAsync();
+
+            _StdOut = await stdout;
+            _StdErr = await stderr;
+
+            signal.Set();
         }
 
         /// <summary>
@@ -260,6 +255,8 @@ namespace JSIL.Tests {
             if (Interlocked.CompareExchange(ref IsDisposed, 1, 0) != 0)
                 return;
 
+            _DisposedSignal.Set();
+
             // The Process class likes to throw exceptions randomly in accessors and method calls.
             try {
                 if (!Process.HasExited) {
@@ -272,6 +269,11 @@ namespace JSIL.Tests {
 
             try {
                 Process.Close();
+            } catch {
+            }
+
+            try {
+                Process.Dispose();
             } catch {
             }
         }
