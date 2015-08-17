@@ -553,25 +553,37 @@ $jsilcore.$ListExternals = function ($, T, type) {
     }
   );
 
-  $.Method({ Static: false, Public: false, Virtual: true }, "InsertItem",
-    new JSIL.MethodSignature(null, [$.Int32, new JSIL.GenericParameter("T", "System.Collections.ObjectModel.Collection`1")], []),
-    function InsertItem(index, item) {
+  var insertItemImpl = function InsertItem(index, item) {
       index = index | 0;
 
       if (index >= this._items.length) {
-        this._items.push(item);
+          this._items.push(item);
       } else if (index >= this._size) {
-        this._items[index] = item;
+          this._items[index] = item;
       } else {
-        this._items.splice(index, 0, item);
+          this._items.splice(index, 0, item);
       }
 
       this._size += 1;
 
       if (this.$OnItemAdded)
-        this.$OnItemAdded(item);
-    }
-  );
+          this.$OnItemAdded(item);
+  }
+
+  switch (type) {
+      case "ObservableCollection":
+          $.Method({ Static: false, Public: false, Virtual: true }, "InsertItem",
+          new JSIL.MethodSignature(null, [$.Int32, new JSIL.GenericParameter("T", "System.Collections.ObjectModel.ObservableCollection`1")], []),
+            insertItemImpl
+          );
+          break;
+      default:
+          $.Method({ Static: false, Public: false, Virtual: true }, "InsertItem",
+          new JSIL.MethodSignature(null, [$.Int32, new JSIL.GenericParameter("T", "System.Collections.ObjectModel.Collection`1")], []),
+            insertItemImpl
+          );
+          break;
+  }
 
   $.Method({ Static: false, Public: false, Virtual: true }, "RemoveItem",
     new JSIL.MethodSignature(null, [$.Int32], []),
