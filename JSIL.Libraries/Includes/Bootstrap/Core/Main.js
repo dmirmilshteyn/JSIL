@@ -113,6 +113,7 @@ JSIL.MakeClass("System.TypeLoadException", "System.EntryPointNotFoundException",
   //? include("Classes/System.Collections.ObjectModel.ReadOnlyCollection.js"); writeln();
   //? include("Classes/System.Collections.Generic.Stack.js"); writeln();
   //? include("Classes/System.Collections.Generic.Queue.js"); writeln();
+  //? include("Classes/System.Collections.ObjectModel.ObservableCollection.js"); writeln();
 //? }
 
 //? include("Classes/System.Threading.Interlocked.js"); writeln();
