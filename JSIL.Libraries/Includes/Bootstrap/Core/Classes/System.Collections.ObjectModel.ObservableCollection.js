@@ -1,6 +1,6 @@
 ﻿$jsilcore.$ObservableCollectionExternals = function ($) {
     var T = new JSIL.GenericParameter("T", "System.Collections.ObjectModel.ObservableCollection`1");
-    $jsilcore.$ListExternals($, T, "List");
+    $jsilcore.$ListExternals($, T, "ObservableCollection");
 
     var mscorlib = JSIL.GetCorlib();
 
