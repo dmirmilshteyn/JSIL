@@ -50,6 +50,7 @@
     <None Include=".bin\npm.cmd" />
     <Content Include="gruntfile.js" />
     <Content Include="Includes\Bootstrap\Core\Classes\System.Collections.Generic.EqualityComparer.js" />
+    <Content Include="Includes\Bootstrap\Core\Classes\System.Collections.ObjectModel.ObservableCollection.js" />
     <Content Include="Includes\Bootstrap\Core\Utils\%24jsilcore.%24ParseBoolean.js" />
     <Content Include="Includes\Bootstrap\Core\Utils\%24jsilcore.InitResizableArray.js" />
     <Content Include="Includes\Bootstrap\Core\Utils\JSIL.%24WrapIComparer.js" />
@@ -173,6 +174,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Includes\Bootstrap\Core\Main.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="Empty.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
