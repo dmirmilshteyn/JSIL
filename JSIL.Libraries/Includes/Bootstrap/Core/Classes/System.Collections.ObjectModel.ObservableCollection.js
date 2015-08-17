@@ -6,18 +6,22 @@
 
     $.Method({ Static: false, Public: true, Virtual: true }, "add_CollectionChanged",
       JSIL.MethodSignature.Action(mscorlib.TypeRef("System.Collections.Specialized.NotifyCollectionChangedEventHandler")),
+      function () { }
     );
 
     $.Method({ Static: false, Public: false, Virtual: true }, "add_PropertyChanged",
       JSIL.MethodSignature.Action(mscorlib.TypeRef("System.ComponentModel.PropertyChangedEventHandler")),
+      function () { }
     );
 
     $.Method({ Static: false, Public: true, Virtual: true }, "remove_CollectionChanged",
       JSIL.MethodSignature.Action(mscorlib.TypeRef("System.Collections.Specialized.NotifyCollectionChangedEventHandler")),
+      function () { }
     );
 
     $.Method({ Static: false, Public: false, Virtual: true }, "remove_PropertyChanged",
       JSIL.MethodSignature.Action(mscorlib.TypeRef("System.ComponentModel.PropertyChangedEventHandler")),
+      function () { }
     );
 
     $.Method({ Static: false, Public: true }, ".ctor",
