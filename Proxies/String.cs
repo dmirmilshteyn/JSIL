@@ -334,11 +334,5 @@ namespace JSIL.Proxies {
         public static bool Equals(string lhs, string rhs) {
             throw new InvalidOperationException();
         }
-
-        [JSReplacement("(System.String.Compare($lhs, $rhs, $comparison) === 0)")]
-        [JSIsPure]
-        public static bool Equals(string lhs, string rhs, StringComparison comparison) {
-            throw new InvalidOperationException();
-        }
     }
 }
