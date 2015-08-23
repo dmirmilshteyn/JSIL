@@ -9,6 +9,17 @@
         }
       );
 
+      $.Method({ Static: false, Public: true }, ".ctor",
+          (new JSIL.MethodSignature(null, [$.Int32, $.Int32], [])),
+          function _ctor(initialCount, maxCount) {
+              // FIXME: Implement MaxCount ctor for SemaphoreSlim
+              this._count = initialCount;
+              this._max_count = maxCount;
+
+              this._tcs_queue = new (System.Collections.Generic.Queue$b1.Of(System.Threading.Tasks.TaskCompletionSource$b1.Of(System.Boolean)))();
+          }
+      );
+
       $.Method({ Static: false, Public: true }, "WaitAsync",
         (new JSIL.MethodSignature($jsilcore.TypeRef("System.Threading.Tasks.Task"), [], [])),
         function WaitAsync() {
