@@ -84,8 +84,6 @@ JSIL.DeclareNamespace("System.Runtime.InteropServices");
 //? include("Classes/System.Threading.Volatile.js"); writeln();
 //? include("Classes/System.Threading.SemaphoreSlim.js"); writeln();
 
-//? include("Classes/System.Collections.Concurrent.ConcurrentQueue.js"); writeln();
-
 //? if (!('TRANSLATED' in  __out)) {
   //? include("Classes/System.Collections.Generic.List.js"); writeln();
   //? include("Classes/System.Collections.ArrayList.js"); writeln();
@@ -154,41 +152,6 @@ JSIL.MakeClass("System.SystemException", "System.Collections.Generic.KeyNotFound
 
 JSIL.MakeClass("System.TypeLoadException", "System.DllNotFoundException", true);
 JSIL.MakeClass("System.TypeLoadException", "System.EntryPointNotFoundException", true);
-<<<<<<< HEAD
-//? }
-
-//? include("Classes/System.Console.js"); writeln();
-//? include("Classes/System.Diagnostics.Debug.js"); writeln();
-
-//? include("Classes/System.Threading.Thread.js"); writeln();
-
-//? if (!('TRANSLATED' in  __out)) {
-  //? include("Classes/System.Collections.Generic.List.js"); writeln();
-  //? include("Classes/System.Collections.ArrayList.js"); writeln();
-  //? include("Classes/System.Collections.ObjectModel.Collection.js"); writeln();
-  //? include("Classes/System.Collections.ObjectModel.ReadOnlyCollection.js"); writeln();
-  //? include("Classes/System.Collections.Generic.Stack.js"); writeln();
-  //? include("Classes/System.Collections.Generic.Queue.js"); writeln();
-  //? include("Classes/System.Collections.ObjectModel.ObservableCollection.js"); writeln();
-//? }
-
-//? include("Classes/System.Threading.Interlocked.js"); writeln();
-//? include("Classes/System.Threading.Monitor.js"); writeln();
-//? include("Classes/System.Threading.Volatile.js"); writeln();
-
-
-//? include("Classes/System.Random.js"); writeln();
-//? include("Classes/System.Math.js"); writeln();
-
-//? include("Classes/System.Environment.js"); writeln();
-
-//? if (!('TRANSLATED' in  __out)) {
-  //? include("Classes/System.Collections.Generic.Dictionary.js"); writeln();
-  //? include("Classes/System.Collections.Generic.KeyValuePair.js"); writeln();
-  //? include("Classes/System.Collections.Generic.HashSet.js"); writeln();
-//? }
-=======
->>>>>>> JSIL.Bootstrap.js reordered.
 
 JSIL.MakeInterface(
   "System.Collections.Generic.IDictionary`2", true, ["TKey", "TValue"], function ($) {

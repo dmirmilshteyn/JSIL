@@ -40,7 +40,5 @@
             return this._count;
         }
       );
-
-      $.Property({ Static: false, Public: true }, "CurrentCount");
   }
 );
