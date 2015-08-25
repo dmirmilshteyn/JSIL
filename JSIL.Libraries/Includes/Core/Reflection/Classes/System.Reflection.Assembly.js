@@ -128,6 +128,10 @@
 
         var types = JSIL.GetTypesFromAssembly(this.__PublicInterface__);
         for (var i = 0; i < types.length; i++) {
+            if (!types[i].__TypeInitialized__) {
+                JSIL.InitializeType(types[i]);
+            }
+
             var typeInfo = System.Reflection.IntrospectionExtensions.GetTypeInfo(types[i]);
 
             typeInfos.push(typeInfo);
